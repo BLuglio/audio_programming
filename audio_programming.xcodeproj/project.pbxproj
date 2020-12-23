@@ -63,8 +63,6 @@
 		9FDB978F257FB9AC00CEB1CD /* file_example_WAV_1MG.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = file_example_WAV_1MG.wav; sourceTree = "<group>"; };
 		9FDB9798257FDA9000CEB1CD /* stft.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = stft.h; sourceTree = "<group>"; };
 		9FDB9799257FDA9000CEB1CD /* stft.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = stft.c; sourceTree = "<group>"; };
-		9FEE5B3525893BD00022F066 /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; path = include; sourceTree = "<group>"; };
-		9FEE5B3625893BDD0022F066 /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = lib; sourceTree = "<group>"; };
 		9FEE5B3825893F6C0022F066 /* libportsf.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libportsf.a; path = audio_programming/library/lib/libportsf.a; sourceTree = "<group>"; };
 		9FEE5B3925893F6C0022F066 /* libfftw3f.la */ = {isa = PBXFileReference; lastKnownFileType = text; name = libfftw3f.la; path = audio_programming/library/lib/libfftw3f.la; sourceTree = "<group>"; };
 		9FEE5B3C258946B00022F066 /* fftw3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = fftw3.h; path = audio_programming/library/include/fftw3.h; sourceTree = "<group>"; };
@@ -141,7 +139,6 @@
 		9FDB9778257F95EF00CEB1CD /* audio_programming */ = {
 			isa = PBXGroup;
 			children = (
-				9FEE5B3425893B6A0022F066 /* library */,
 				9FDB9779257F95EF00CEB1CD /* main.c */,
 				9FDB978F257FB9AC00CEB1CD /* file_example_WAV_1MG.wav */,
 				9FDB9798257FDA9000CEB1CD /* stft.h */,
@@ -152,15 +149,6 @@
 				9F838218258D1A460050BB18 /* pan.c */,
 			);
 			path = audio_programming;
-			sourceTree = "<group>";
-		};
-		9FEE5B3425893B6A0022F066 /* library */ = {
-			isa = PBXGroup;
-			children = (
-				9FEE5B3625893BDD0022F066 /* lib */,
-				9FEE5B3525893BD00022F066 /* include */,
-			);
-			path = library;
 			sourceTree = "<group>";
 		};
 		9FEE5B3725893F6B0022F066 /* Frameworks */ = {
@@ -415,12 +403,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				"HEADER_SEARCH_PATHS[arch=*]" = "${PROJECT_DIR}/audio_programming/library/include";
+				"HEADER_SEARCH_PATHS[arch=*]" = "${PROJECT_DIR}/library/include";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/audio_programming/library/lib",
+					"$(PROJECT_DIR)/library/lib",
 				);
-				"LIBRARY_SEARCH_PATHS[arch=*]" = "${PROJECT_DIR}/audio_programming/library/lib";
+				"LIBRARY_SEARCH_PATHS[arch=*]" = "$(PROJECT_DIR)/library/lib";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -429,12 +417,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				"HEADER_SEARCH_PATHS[arch=*]" = "${PROJECT_DIR}/audio_programming/library/include";
+				"HEADER_SEARCH_PATHS[arch=*]" = "${PROJECT_DIR}/library/include";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/audio_programming/library/lib",
+					"$(PROJECT_DIR)/library/lib",
 				);
-				"LIBRARY_SEARCH_PATHS[arch=*]" = "${PROJECT_DIR}/audio_programming/library/lib";
+				"LIBRARY_SEARCH_PATHS[arch=*]" = "$(PROJECT_DIR)/library/lib";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
