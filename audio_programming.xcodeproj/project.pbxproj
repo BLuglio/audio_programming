@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		9F838219258D1A460050BB18 /* pan.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F838218258D1A460050BB18 /* pan.c */; };
-		9F83821E258E50900050BB18 /* libportaudio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F83821D258E50900050BB18 /* libportaudio.a */; };
 		9F838238258E65E60050BB18 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F838237258E65E60050BB18 /* main.c */; };
 		9F83823A258E66600050BB18 /* libportaudio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F838239258E66600050BB18 /* libportaudio.a */; };
 		9F838241258E6BDA0050BB18 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F83823C258E6BDA0050BB18 /* CoreServices.framework */; };
@@ -21,16 +20,18 @@
 		9FEE5B3E258946DE0022F066 /* libportsf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FEE5B3825893F6C0022F066 /* libportsf.a */; };
 		9FEE5B43258949C20022F066 /* libfftw3f.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FEE5B42258949C20022F066 /* libfftw3f.a */; };
 		9FF5426325800D7400B1BFA7 /* eq.c in Sources */ = {isa = PBXBuildFile; fileRef = 9FF5426225800D7400B1BFA7 /* eq.c */; };
+		9FFEF2DB2593CAC500D9C4AE /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FFEF2DA2593CAC500D9C4AE /* SDL2.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		9F838229258E62400050BB18 /* CopyFiles */ = {
+		9F838229258E62400050BB18 /* Copy Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
 			dstSubfolderSpec = 0;
 			files = (
 			);
+			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 1;
 		};
 		9FDB9774257F95EF00CEB1CD /* CopyFiles */ = {
@@ -47,7 +48,6 @@
 /* Begin PBXFileReference section */
 		9F838217258D1A460050BB18 /* pan.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pan.h; sourceTree = "<group>"; };
 		9F838218258D1A460050BB18 /* pan.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = pan.c; sourceTree = "<group>"; };
-		9F83821D258E50900050BB18 /* libportaudio.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libportaudio.a; path = audio_programming/library/lib/libportaudio.a; sourceTree = "<group>"; };
 		9F83822B258E62400050BB18 /* real_time */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = real_time; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F838234258E64320050BB18 /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; path = include; sourceTree = "<group>"; };
 		9F838235258E64450050BB18 /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = lib; sourceTree = "<group>"; };
@@ -70,6 +70,7 @@
 		9FEE5B42258949C20022F066 /* libfftw3f.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfftw3f.a; path = audio_programming/library/lib/libfftw3f.a; sourceTree = "<group>"; };
 		9FF5426125800D7400B1BFA7 /* eq.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = eq.h; sourceTree = "<group>"; };
 		9FF5426225800D7400B1BFA7 /* eq.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = eq.c; sourceTree = "<group>"; };
+		9FFEF2DA2593CAC500D9C4AE /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../../../../../Library/Frameworks/SDL2.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FFEF2DB2593CAC500D9C4AE /* SDL2.framework in Frameworks */,
 				9F838241258E6BDA0050BB18 /* CoreServices.framework in Frameworks */,
 				9F838242258E6BDA0050BB18 /* AudioToolbox.framework in Frameworks */,
 				9F838243258E6BDA0050BB18 /* CoreAudio.framework in Frameworks */,
@@ -90,7 +92,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9F83821E258E50900050BB18 /* libportaudio.a in Frameworks */,
 				9FEE5B43258949C20022F066 /* libfftw3f.a in Frameworks */,
 				9FEE5B3E258946DE0022F066 /* libportsf.a in Frameworks */,
 			);
@@ -154,12 +155,12 @@
 		9FEE5B3725893F6B0022F066 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9FFEF2DA2593CAC500D9C4AE /* SDL2.framework */,
 				9F83823D258E6BDA0050BB18 /* AudioToolbox.framework */,
 				9F838240258E6BDA0050BB18 /* AudioUnit.framework */,
 				9F83823E258E6BDA0050BB18 /* CoreAudio.framework */,
 				9F83823F258E6BDA0050BB18 /* CoreFoundation.framework */,
 				9F83823C258E6BDA0050BB18 /* CoreServices.framework */,
-				9F83821D258E50900050BB18 /* libportaudio.a */,
 				9F838239258E66600050BB18 /* libportaudio.a */,
 				9FEE5B42258949C20022F066 /* libfftw3f.a */,
 				9FEE5B3F2589473F0022F066 /* fftw3.f */,
@@ -179,7 +180,7 @@
 			buildPhases = (
 				9F838227258E62400050BB18 /* Sources */,
 				9F838228258E62400050BB18 /* Frameworks */,
-				9F838229258E62400050BB18 /* CopyFiles */,
+				9F838229258E62400050BB18 /* Copy Files */,
 			);
 			buildRules = (
 			);
@@ -270,12 +271,22 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				"HEADER_SEARCH_PATHS[arch=*]" = "${PROJECT_DIR}/library/include";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/library/lib",
+					"$(PROJECT_DIR)/library/frameworks",
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+				);
+				"HEADER_SEARCH_PATHS[arch=*]" = (
+					"${PROJECT_DIR}/library/include",
+					/usr/local/include/SDL2,
+				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/library/lib",
+					/usr/local/lib,
 				);
-				"LIBRARY_SEARCH_PATHS[arch=*]" = "${PROJECT_DIR}/library/lib";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -284,8 +295,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/library/lib",
+					"$(PROJECT_DIR)/library/frameworks",
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+				);
 				"HEADER_SEARCH_PATHS[arch=*]" = "${PROJECT_DIR}/library/include";
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/library/lib";
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/library/lib",
+					/usr/local/lib,
+				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
