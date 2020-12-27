@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <SDL2/SDL.h>
+#include <SDL_ttf.h>
 #include "constants.h"
 
 typedef struct Color {

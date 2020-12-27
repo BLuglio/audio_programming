@@ -51,7 +51,10 @@
 
 int main(int argc, const char * argv[]){
     
-    if(initGraphics() < 0) return 1;
+    if(initGraphics() < 0){
+        terminateGraphics();
+        return 1;
+    }
     initAudio();
 
 //    float frequency;

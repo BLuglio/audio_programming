@@ -10,11 +10,13 @@
 
 SDL_Window* window = NULL;
 SDL_Renderer* renderer = NULL;
+TTF_Font* font = NULL;
+
 int SCREEN_WIDTH = 800;
 int SCREEN_HEIGHT = 600;
 
 int initGraphics(){
-    if( SDL_Init( SDL_INIT_VIDEO ) < 0 ){
+    if(SDL_Init( SDL_INIT_VIDEO ) < 0){
         printf("SDL could not be initialized! SDL_Error: %s\n", SDL_GetError());
         return -1;
     }
@@ -22,7 +24,15 @@ int initGraphics(){
         printf("SDL initialized \n");
         window = SDL_CreateWindow("My Audio Project", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_RESIZABLE);
     }
-    if( window == NULL ){
+    
+    TTF_Init();
+    font = TTF_OpenFont("/System/Library/Fonts/Keyboard.ttf", 24);
+    if (font == NULL) {
+        fprintf(stderr, "error: font not found\n");
+        return -1;
+    }
+    
+    if(window == NULL){
         printf( "Window could not be created! SDL_Error: %s\n", SDL_GetError());
         SDL_Quit();
         return -1;
@@ -38,6 +48,7 @@ int initGraphics(){
 }
 
 void terminateGraphics(){
+    TTF_Quit();
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
@@ -53,6 +64,28 @@ void drawPixel(Pixel pixel, SDL_Renderer *renderer){
     );
 
     SDL_RenderDrawPoint(renderer, pixel.point.x, pixel.point.y);
+}
+
+/*
+- x, y: upper left corner.
+- texture, rect: outputs.
+*/
+void get_text_and_rect(SDL_Renderer *renderer, int x, int y, char *text,
+        TTF_Font *font, SDL_Texture **texture, SDL_Rect *rect) {
+    int text_width;
+    int text_height;
+    SDL_Surface *surface;
+    SDL_Color textColor = {255, 255, 255, 0};
+
+    surface = TTF_RenderText_Solid(font, text, textColor);
+    *texture = SDL_CreateTextureFromSurface(renderer, surface);
+    text_width = surface->w;
+    text_height = surface->h;
+    SDL_FreeSurface(surface);
+    rect->x = x;
+    rect->y = y;
+    rect->w = text_width;
+    rect->h = text_height;
 }
 
 void drawSineWave(int w, int h, SDL_Renderer *renderer){
@@ -101,8 +134,20 @@ void draw(SDL_Window *window, SDL_Renderer *renderer){
     SDL_RenderClear(renderer);
 
     drawSineWave(w, h, renderer);
+    
+    /*
+     FONT
+     */
+    SDL_Texture *texture;
+    SDL_Rect rect;
+    get_text_and_rect(renderer, 0, 0, "Output Device", font, &texture, &rect);
+    /* Use TTF textures. */
+    SDL_RenderCopy(renderer, texture, NULL, &rect);
+    //get_text_and_rect(renderer, 0, rect1.y + rect1.h, "world", font, &texture2, &rect2);
 
-    SDL_RenderPresent(renderer);
+    /*
+     END FONT
+     */
 
     if((currentFrameTick - lastFrameTick) >= ticksPerFrame) {
     lastFrameTick = currentFrameTick;
@@ -125,6 +170,9 @@ int updateGraphics(){
               }
             }
           }
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+    SDL_RenderClear(renderer);
     draw(window, renderer);
+    SDL_RenderPresent(renderer);
     return 1;
 }

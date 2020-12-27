@@ -23,6 +23,7 @@
 		9FFEF2DB2593CAC500D9C4AE /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FFEF2DA2593CAC500D9C4AE /* SDL2.framework */; };
 		9FFEF2DE25950BBD00D9C4AE /* graphics.c in Sources */ = {isa = PBXBuildFile; fileRef = 9FFEF2DD25950BBD00D9C4AE /* graphics.c */; };
 		9FFEF2E32595122400D9C4AE /* audio.c in Sources */ = {isa = PBXBuildFile; fileRef = 9FFEF2E22595122400D9C4AE /* audio.c */; };
+		9FFEF2E92599040B00D9C4AE /* libSDL2_ttf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FFEF2E62599040B00D9C4AE /* libSDL2_ttf.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -78,6 +79,9 @@
 		9FFEF2E02595103C00D9C4AE /* graphics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = graphics.h; sourceTree = "<group>"; };
 		9FFEF2E12595122400D9C4AE /* audio.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = audio.h; sourceTree = "<group>"; };
 		9FFEF2E22595122400D9C4AE /* audio.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = audio.c; sourceTree = "<group>"; };
+		9FFEF2E42599040B00D9C4AE /* libSDL2_ttf.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libSDL2_ttf.dylib; path = library/lib/libSDL2_ttf.dylib; sourceTree = "<group>"; };
+		9FFEF2E52599040B00D9C4AE /* libSDL2_ttf-2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libSDL2_ttf-2.0.0.dylib"; path = "library/lib/libSDL2_ttf-2.0.0.dylib"; sourceTree = "<group>"; };
+		9FFEF2E62599040B00D9C4AE /* libSDL2_ttf.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2_ttf.a; path = library/lib/libSDL2_ttf.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +89,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FFEF2E92599040B00D9C4AE /* libSDL2_ttf.a in Frameworks */,
 				9FFEF2DB2593CAC500D9C4AE /* SDL2.framework in Frameworks */,
 				9F838241258E6BDA0050BB18 /* CoreServices.framework in Frameworks */,
 				9F838242258E6BDA0050BB18 /* AudioToolbox.framework in Frameworks */,
@@ -167,6 +172,9 @@
 		9FEE5B3725893F6B0022F066 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9FFEF2E52599040B00D9C4AE /* libSDL2_ttf-2.0.0.dylib */,
+				9FFEF2E62599040B00D9C4AE /* libSDL2_ttf.a */,
+				9FFEF2E42599040B00D9C4AE /* libSDL2_ttf.dylib */,
 				9FFEF2DA2593CAC500D9C4AE /* SDL2.framework */,
 				9F83823D258E6BDA0050BB18 /* AudioToolbox.framework */,
 				9F838240258E6BDA0050BB18 /* AudioUnit.framework */,
@@ -300,6 +308,11 @@
 					"$(PROJECT_DIR)/library/lib",
 					/usr/local/lib,
 				);
+				"LIBRARY_SEARCH_PATHS[arch=*]" = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/library/lib",
+					/usr/local/lib,
+				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -317,6 +330,10 @@
 				);
 				"HEADER_SEARCH_PATHS[arch=*]" = "${PROJECT_DIR}/library/include";
 				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/library/lib",
+					/usr/local/lib,
+				);
+				"LIBRARY_SEARCH_PATHS[arch=*]" = (
 					"$(PROJECT_DIR)/library/lib",
 					/usr/local/lib,
 				);
