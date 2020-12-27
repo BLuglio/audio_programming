@@ -8,74 +8,51 @@
 
 #include <stdio.h>
 #include <math.h>
-#include "portaudio.h"
-#include <SDL2/SDL.h>
+#include "graphics.h"
+#include "audio.h"
 
-#define FRAME_BLOCK_LEN 256 // length of buffer; larger length -> higher latency
-#define SAMPLING_RATE 44100
-#define TWO_PI (3.14159265f * 2.0f)
+//PaStream* audioStream;
+//
+///* sample increment of the phase of the modulator */
+//double sampleIncrementCarrier = 0, sampleIncrementModulator = 0;
 
-SDL_Window* window = NULL;
-SDL_Renderer* renderer = NULL;
-int SCREEN_WIDTH = 800;
-int SCREEN_HEIGHT = 600;
-
-PaStream* audioStream;
-
-/* sample increment of the phase of the modulator */
-double sampleIncrementCarrier = 0, sampleIncrementModulator = 0;
-
-typedef struct{
-    float modulatorFreq, carrierFreq;
-    float modulatorPhase, carrierPhase;
-}
-paData;
+//typedef struct{
+//    float modulatorFreq, carrierFreq;
+//    float modulatorPhase, carrierPhase;
+//}
+//paData;
 
 /*
  PROCESSING HERE
  */
-int audio_callback(const void* inputBuffer, void* outputBuffer, unsigned long framesPerBuffer, const PaStreamCallbackTimeInfo* timeInfo, PaStreamCallbackFlags statusFlags, void* userData){
-    paData* data = (paData*) userData;
-    sampleIncrementModulator = TWO_PI * data->modulatorFreq / SAMPLING_RATE;
-    sampleIncrementCarrier = TWO_PI * data->carrierFreq / SAMPLING_RATE;
-    float* out = (float*) outputBuffer;
-    //static double phase = 0;
-    unsigned long i;
-    for(i=0; i<framesPerBuffer; i++){
-        float sine1 = sin(data->carrierPhase);
-        float sine2 = sin(data->modulatorPhase);
-        *out++ = sine1 * sine2;
-        *out++ = sine1 * sine2;
-        data->modulatorPhase += sampleIncrementModulator;
-        data->carrierPhase += sampleIncrementCarrier;
-    }
-    return paContinue;
-}
+//int audio_callback(const void* inputBuffer, void* outputBuffer, unsigned long framesPerBuffer, const PaStreamCallbackTimeInfo* timeInfo, PaStreamCallbackFlags statusFlags, void* userData){
+//    paData* data = (paData*) userData;
+//    sampleIncrementModulator = TWO_PI * data->modulatorFreq / SAMPLING_RATE;
+//    sampleIncrementCarrier = TWO_PI * data->carrierFreq / SAMPLING_RATE;
+//    float* out = (float*) outputBuffer;
+//    //static double phase = 0;
+//    unsigned long i;
+//    for(i=0; i<framesPerBuffer; i++){
+//        float sine1 = sin(data->carrierPhase);
+//        float sine2 = sin(data->modulatorPhase);
+//        *out++ = sine1 * sine2;
+//        *out++ = sine1 * sine2;
+//        data->modulatorPhase += sampleIncrementModulator;
+//        data->carrierPhase += sampleIncrementCarrier;
+//    }
+//    return paContinue;
+//}
 
-void terminate(){
-    Pa_StopStream(audioStream); // stop the callback
-    Pa_CloseStream(audioStream); // destroy the audio stream object
-    Pa_Terminate(); // terminate portaudio
-    SDL_Quit();
-}
+//void terminate(){
+//    Pa_StopStream(audioStream); // stop the callback
+//    Pa_CloseStream(audioStream); // destroy the audio stream object
+//    Pa_Terminate(); // terminate portaudio
+//}
 
 int main(int argc, const char * argv[]){
     
-    if( SDL_Init( SDL_INIT_VIDEO ) < 0 ){
-        printf("SDL could not be initialized!\n");
-        return 1;
-    }
-    else{
-        printf("SDL initialized \n");
-        window = SDL_CreateWindow("My Audio Project", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_RESIZABLE);
-    }
-    if( window == NULL ){
-        printf( "Window could not be created! SDL_Error: %s\n", SDL_GetError());
-        SDL_Quit();
-        return 1;
-    }
-    
-    renderer = SDL_CreateRenderer(window, -1, 0);//render window in standard monitor, no flags
+    if(initGraphics() < 0) return 1;
+    initAudio();
 
 //    float frequency;
 //    int i, id;
@@ -141,12 +118,38 @@ int main(int argc, const char * argv[]){
 //    }
     
     
-    SDL_Event e;
-    while (getchar() != 'q'){
-        while (SDL_PollEvent(&e)){
-            printf("running\n");
-        }
+//    SDL_Event e;
+//    while (getchar() != 'q'){
+//        while (SDL_PollEvent(&e)){
+//            draw(window, renderer);
+//        }
+//    }
+    
+    
+    /* Main Loop */
+    int isRunning = 1;
+    while(isRunning > 0) {
+
+            isRunning = updateGraphics();
+
+
+//      SDL_Event event;
+//      if(SDL_PollEvent(&event)) {
+//        if(event.type == SDL_QUIT) {
+//          break;
+//        } else if(event.type == SDL_KEYUP) {
+//          if(event.key.keysym.sym == SDLK_q) {
+//            /* Press q to quit the program */
+//            break;
+//          }
+//        }
+//      }
+//      draw(window, renderer);
+//        updateGraphics()
     }
-    terminate();
+    
+    terminateGraphics();
+    terminateAudio();
+    
     return 0;
 }

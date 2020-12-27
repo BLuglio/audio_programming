@@ -21,6 +21,8 @@
 		9FEE5B43258949C20022F066 /* libfftw3f.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FEE5B42258949C20022F066 /* libfftw3f.a */; };
 		9FF5426325800D7400B1BFA7 /* eq.c in Sources */ = {isa = PBXBuildFile; fileRef = 9FF5426225800D7400B1BFA7 /* eq.c */; };
 		9FFEF2DB2593CAC500D9C4AE /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FFEF2DA2593CAC500D9C4AE /* SDL2.framework */; };
+		9FFEF2DE25950BBD00D9C4AE /* graphics.c in Sources */ = {isa = PBXBuildFile; fileRef = 9FFEF2DD25950BBD00D9C4AE /* graphics.c */; };
+		9FFEF2E32595122400D9C4AE /* audio.c in Sources */ = {isa = PBXBuildFile; fileRef = 9FFEF2E22595122400D9C4AE /* audio.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -71,6 +73,11 @@
 		9FF5426125800D7400B1BFA7 /* eq.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = eq.h; sourceTree = "<group>"; };
 		9FF5426225800D7400B1BFA7 /* eq.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = eq.c; sourceTree = "<group>"; };
 		9FFEF2DA2593CAC500D9C4AE /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../../../../../Library/Frameworks/SDL2.framework; sourceTree = "<group>"; };
+		9FFEF2DD25950BBD00D9C4AE /* graphics.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = graphics.c; sourceTree = "<group>"; };
+		9FFEF2DF25950C4F00D9C4AE /* constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
+		9FFEF2E02595103C00D9C4AE /* graphics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = graphics.h; sourceTree = "<group>"; };
+		9FFEF2E12595122400D9C4AE /* audio.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = audio.h; sourceTree = "<group>"; };
+		9FFEF2E22595122400D9C4AE /* audio.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = audio.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +120,11 @@
 			isa = PBXGroup;
 			children = (
 				9F838237258E65E60050BB18 /* main.c */,
+				9FFEF2DF25950C4F00D9C4AE /* constants.h */,
+				9FFEF2E02595103C00D9C4AE /* graphics.h */,
+				9FFEF2DD25950BBD00D9C4AE /* graphics.c */,
+				9FFEF2E12595122400D9C4AE /* audio.h */,
+				9FFEF2E22595122400D9C4AE /* audio.c */,
 			);
 			path = real_time;
 			sourceTree = "<group>";
@@ -249,6 +261,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FFEF2E32595122400D9C4AE /* audio.c in Sources */,
+				9FFEF2DE25950BBD00D9C4AE /* graphics.c in Sources */,
 				9F838238258E65E60050BB18 /* main.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
