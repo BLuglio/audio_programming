@@ -26,7 +26,7 @@ int initGraphics(){
     }
     
     TTF_Init();
-    font = TTF_OpenFont("/System/Library/Fonts/Keyboard.ttf", 24);
+    font = TTF_OpenFont("/System/Library/Fonts/Keyboard.ttf", 18);
     if (font == NULL) {
         fprintf(stderr, "error: font not found\n");
         return -1;
@@ -104,7 +104,7 @@ void drawSineWave(int w, int h, SDL_Renderer *renderer){
     }
 }
 
-void draw(SDL_Window *window, SDL_Renderer *renderer){
+void draw(SDL_Window* window, SDL_Renderer* renderer, State state){
     const int fps = 90;
     const Uint32 ticksPerFrame = 1000 / fps;
     SDL_DisplayMode mode;
@@ -132,22 +132,18 @@ void draw(SDL_Window *window, SDL_Renderer *renderer){
       bgColor.a
     );
     SDL_RenderClear(renderer);
-
-    drawSineWave(w, h, renderer);
     
-    /*
-     FONT
-     */
+    /* DRAW SINE WAVE*/
+//    drawSineWave(w, h, renderer);
+    
+    /* FONT */
     SDL_Texture *texture;
     SDL_Rect rect;
     get_text_and_rect(renderer, 0, 0, "Output Device", font, &texture, &rect);
+    displayDevices(state.outputDevices);
     /* Use TTF textures. */
     SDL_RenderCopy(renderer, texture, NULL, &rect);
     //get_text_and_rect(renderer, 0, rect1.y + rect1.h, "world", font, &texture2, &rect2);
-
-    /*
-     END FONT
-     */
 
     if((currentFrameTick - lastFrameTick) >= ticksPerFrame) {
     lastFrameTick = currentFrameTick;
@@ -158,7 +154,25 @@ void draw(SDL_Window *window, SDL_Renderer *renderer){
     }
 }
 
-int updateGraphics(){
+/*
+ I DEVICE NON ESCONO SU SCHERMO E LA MEMORIA USATA AUMENTA AD OGNI ITERAZIONE :(
+ */
+void displayDevices(OutputDeviceList* list){
+    const OutputDeviceList* device = list;
+    SDL_Texture *texture;
+    SDL_Rect rect;
+    int y = 22;
+    while(device != NULL){
+        char text[512];
+        int n = sprintf(text, "id: %d [%s] - %s\n", device->id, device->hostApiName, device->infoName);
+        device = device->next;
+        get_text_and_rect(renderer, 0, 2*y + 14, text, font, &texture, &rect);
+        y += 2;
+    }
+}
+
+int updateGraphics(State state){
+    
     SDL_Event event;
         if(SDL_PollEvent(&event)) {
             if(event.type == SDL_QUIT) {
@@ -172,7 +186,8 @@ int updateGraphics(){
           }
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
     SDL_RenderClear(renderer);
-    draw(window, renderer);
+    //showOutputDevices(state.outputDevices);
+    draw(window, renderer, state);
     SDL_RenderPresent(renderer);
     return 1;
 }

@@ -17,6 +17,7 @@
 		9F838245258E6BDA0050BB18 /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F838240258E6BDA0050BB18 /* AudioUnit.framework */; };
 		9FDB977A257F95EF00CEB1CD /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 9FDB9779257F95EF00CEB1CD /* main.c */; };
 		9FDB979A257FDA9000CEB1CD /* stft.c in Sources */ = {isa = PBXBuildFile; fileRef = 9FDB9799257FDA9000CEB1CD /* stft.c */; };
+		9FDD6556259FA5A5002582D1 /* shared.c in Sources */ = {isa = PBXBuildFile; fileRef = 9FDD6555259FA5A5002582D1 /* shared.c */; };
 		9FEE5B3E258946DE0022F066 /* libportsf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FEE5B3825893F6C0022F066 /* libportsf.a */; };
 		9FEE5B43258949C20022F066 /* libfftw3f.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FEE5B42258949C20022F066 /* libfftw3f.a */; };
 		9FF5426325800D7400B1BFA7 /* eq.c in Sources */ = {isa = PBXBuildFile; fileRef = 9FF5426225800D7400B1BFA7 /* eq.c */; };
@@ -66,6 +67,8 @@
 		9FDB978F257FB9AC00CEB1CD /* file_example_WAV_1MG.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = file_example_WAV_1MG.wav; sourceTree = "<group>"; };
 		9FDB9798257FDA9000CEB1CD /* stft.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = stft.h; sourceTree = "<group>"; };
 		9FDB9799257FDA9000CEB1CD /* stft.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = stft.c; sourceTree = "<group>"; };
+		9FDD6554259F9EE4002582D1 /* shared.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = shared.h; sourceTree = "<group>"; };
+		9FDD6555259FA5A5002582D1 /* shared.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = shared.c; sourceTree = "<group>"; };
 		9FEE5B3825893F6C0022F066 /* libportsf.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libportsf.a; path = audio_programming/library/lib/libportsf.a; sourceTree = "<group>"; };
 		9FEE5B3925893F6C0022F066 /* libfftw3f.la */ = {isa = PBXFileReference; lastKnownFileType = text; name = libfftw3f.la; path = audio_programming/library/lib/libfftw3f.la; sourceTree = "<group>"; };
 		9FEE5B3C258946B00022F066 /* fftw3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = fftw3.h; path = audio_programming/library/include/fftw3.h; sourceTree = "<group>"; };
@@ -130,6 +133,8 @@
 				9FFEF2DD25950BBD00D9C4AE /* graphics.c */,
 				9FFEF2E12595122400D9C4AE /* audio.h */,
 				9FFEF2E22595122400D9C4AE /* audio.c */,
+				9FDD6554259F9EE4002582D1 /* shared.h */,
+				9FDD6555259FA5A5002582D1 /* shared.c */,
 			);
 			path = real_time;
 			sourceTree = "<group>";
@@ -269,6 +274,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FDD6556259FA5A5002582D1 /* shared.c in Sources */,
 				9FFEF2E32595122400D9C4AE /* audio.c in Sources */,
 				9FFEF2DE25950BBD00D9C4AE /* graphics.c in Sources */,
 				9F838238258E65E60050BB18 /* main.c in Sources */,

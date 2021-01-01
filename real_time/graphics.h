@@ -14,6 +14,7 @@
 #include <SDL2/SDL.h>
 #include <SDL_ttf.h>
 #include "constants.h"
+#include "shared.h"
 
 typedef struct Color {
   int r;
@@ -34,9 +35,10 @@ typedef struct Pixel {
 
 int initGraphics();
 void terminateGraphics();
-void drawPixel(Pixel pixel, SDL_Renderer *renderer);
-void drawSineWave(int w, int h, SDL_Renderer *renderer);
-void draw(SDL_Window *window, SDL_Renderer *renderer);
-int updateGraphics();
+void drawPixel(Pixel pixel, SDL_Renderer* renderer);
+void drawSineWave(int w, int h, SDL_Renderer* renderer);
+void draw(SDL_Window* window, SDL_Renderer* renderer, State state);
+int updateGraphics(State state);
+void displayDevices(OutputDeviceList* list);
 
 #endif /* graphics_h */

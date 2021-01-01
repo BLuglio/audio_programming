@@ -8,8 +8,8 @@
 
 #include <stdio.h>
 #include <math.h>
-#include "graphics.h"
 #include "audio.h"
+#include "graphics.h"
 
 //PaStream* audioStream;
 //
@@ -51,11 +51,15 @@
 
 int main(int argc, const char * argv[]){
     
+    // singleton obj to hold the app state
+    State currentState;
+    
+    currentState.outputDevices = initAudio();
+    
     if(initGraphics() < 0){
         terminateGraphics();
         return 1;
     }
-    initAudio();
 
 //    float frequency;
 //    int i, id;
@@ -132,23 +136,8 @@ int main(int argc, const char * argv[]){
     /* Main Loop */
     int isRunning = 1;
     while(isRunning > 0) {
-
-            isRunning = updateGraphics();
-
-
-//      SDL_Event event;
-//      if(SDL_PollEvent(&event)) {
-//        if(event.type == SDL_QUIT) {
-//          break;
-//        } else if(event.type == SDL_KEYUP) {
-//          if(event.key.keysym.sym == SDLK_q) {
-//            /* Press q to quit the program */
-//            break;
-//          }
-//        }
-//      }
-//      draw(window, renderer);
-//        updateGraphics()
+        //TODO: update currentState
+        isRunning = updateGraphics(currentState);
     }
     
     terminateGraphics();
