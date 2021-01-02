@@ -71,6 +71,20 @@ int audio_callback(const void* inputBuffer, void* outputBuffer, unsigned long fr
     return paContinue;
 }
 
+void startAudioStream(){
+    //    Pa_OpenStream(
+    //                  &audioStream,         //portaudio stream object
+    //                  NULL,     //input params
+    //                  &outputParameters,    //output params
+    //                  SAMPLING_RATE,
+    //                  FRAME_BLOCK_LEN,      //frames per buffer
+    //                  paClipOff,            // no clip
+    //                  audio_callback,       // callback function address
+    //                  data);                // data for the callback function
+    //
+    //    Pa_StartStream(audioStream); //start callback mechanism
+}
+
 void terminateAudio(){
     Pa_StopStream(audioStream); // stop the callback
     Pa_CloseStream(audioStream); // destroy the audio stream object

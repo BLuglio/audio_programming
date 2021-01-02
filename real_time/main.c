@@ -51,13 +51,14 @@
 
 int main(int argc, const char * argv[]){
     
-    // singleton obj to hold the app state
+    // singleton object to hold and update the app status
     State currentState;
     
     currentState.outputDevices = initAudio();
+    currentState.sineWaveAmp = 10;
     
     if(initGraphics() < 0){
-        terminateGraphics();
+        goto exit;
         return 1;
     }
 
@@ -135,11 +136,31 @@ int main(int argc, const char * argv[]){
     
     /* Main Loop */
     int isRunning = 1;
+    int cursor = 0;
+    int isPositive = 0;
+    
     while(isRunning > 0) {
-        //TODO: update currentState
         isRunning = updateGraphics(currentState);
+        if(isPositive == 0){
+            currentState.sineWaveAmp += 2;
+            cursor++;
+            if(cursor > 100){
+                isPositive = 1;
+            }
+        }
+        else {
+            currentState.sineWaveAmp -= 2;
+            cursor--;
+            if(cursor == 0){
+                isPositive = 0;
+            }
+        }
+        //currentState.sineWaveAmp += 2; // guarda l'onda come cambia :))))
     }
     
+    goto exit;
+    
+exit:
     terminateGraphics();
     terminateAudio();
     

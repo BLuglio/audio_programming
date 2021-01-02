@@ -12,6 +12,12 @@ SDL_Window* window = NULL;
 SDL_Renderer* renderer = NULL;
 TTF_Font* font = NULL;
 
+/* canvas */
+SDL_Surface* windowSurface = NULL;
+SDL_Surface* imageSurface = NULL;
+SDL_Event event;
+Uint32 ticksLastFrame = 0;// ticks since last frame
+
 int SCREEN_WIDTH = 800;
 int SCREEN_HEIGHT = 600;
 
@@ -23,18 +29,20 @@ int initGraphics(){
     else{
         printf("SDL initialized \n");
         window = SDL_CreateWindow("My Audio Project", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_RESIZABLE);
+        SDL_UpdateWindowSurface(window);
+        SDL_Delay(2000);//pause the execution for 2 seconds
     }
+    
+    if(window == NULL){
+         printf( "Window could not be created! SDL_Error: %s\n", SDL_GetError());
+         //SDL_Quit();
+         return -1;
+     }
     
     TTF_Init();
     font = TTF_OpenFont("/System/Library/Fonts/Keyboard.ttf", 18);
     if (font == NULL) {
         fprintf(stderr, "error: font not found\n");
-        return -1;
-    }
-    
-    if(window == NULL){
-        printf( "Window could not be created! SDL_Error: %s\n", SDL_GetError());
-        SDL_Quit();
         return -1;
     }
     
@@ -44,6 +52,9 @@ int initGraphics(){
       printf("SDL_CreateRenderer Error: %s\n", SDL_GetError());
         return -1;
     }
+    
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+    
     return 1;
 }
 
@@ -54,6 +65,9 @@ void terminateGraphics(){
     SDL_Quit();
 }
 
+/*
+ Draws a single pixel on the screen
+ */
 void drawPixel(Pixel pixel, SDL_Renderer *renderer){
     SDL_SetRenderDrawColor(
         renderer,
@@ -62,7 +76,6 @@ void drawPixel(Pixel pixel, SDL_Renderer *renderer){
         pixel.color.b,
         pixel.color.a
     );
-
     SDL_RenderDrawPoint(renderer, pixel.point.x, pixel.point.y);
 }
 
@@ -88,10 +101,12 @@ void get_text_and_rect(SDL_Renderer *renderer, int x, int y, char *text,
     rect->h = text_height;
 }
 
-void drawSineWave(int w, int h, SDL_Renderer *renderer){
+void drawSineWave(int w, int h, SDL_Renderer *renderer, State state){
     static float startAngle = PI;
-    static int amp = 10;
+    //static int amp = 10;
+    int amp = state.sineWaveAmp;
     static float frequency = (PI / 60);
+    //float frequency = TWO_PI * 500 / SAMPLING_RATE;
 
     Color c = {0, 255, 0, 255};
     float angle = startAngle;
@@ -105,25 +120,18 @@ void drawSineWave(int w, int h, SDL_Renderer *renderer){
 }
 
 void draw(SDL_Window* window, SDL_Renderer* renderer, State state){
-    const int fps = 90;
-    const Uint32 ticksPerFrame = 1000 / fps;
-    SDL_DisplayMode mode;
+    
+    // get window's dimensions and the desktop's format and refresh rate
     int w;
     int h;
-    static Uint32 lastFrameTick = 0;
-    Uint32 currentFrameTick = SDL_GetTicks();
-    if(lastFrameTick == 0) {
-        lastFrameTick = SDL_GetTicks();
-    }
-
-    //    printf("%d\n", lastFrameTick);
-    Color bgColor = { .r = 0, .g = 0, .b = 0, .a = 255 };
-
+    SDL_DisplayMode mode;
     SDL_GetWindowDisplayMode(window, &mode);
     w = mode.w;
     h = mode.h;
 
     /* Clear the screen */
+    Color bgColor = { .r = 0, .g = 0, .b = 0, .a = 255 };
+    
     SDL_SetRenderDrawColor(
       renderer,
       bgColor.r,
@@ -131,63 +139,64 @@ void draw(SDL_Window* window, SDL_Renderer* renderer, State state){
       bgColor.b,
       bgColor.a
     );
-    SDL_RenderClear(renderer);
     
+    SDL_RenderClear(renderer);
+
     /* DRAW SINE WAVE*/
-//    drawSineWave(w, h, renderer);
+    drawSineWave(w, h, renderer, state);
     
     /* FONT */
-    SDL_Texture *texture;
-    SDL_Rect rect;
-    get_text_and_rect(renderer, 0, 0, "Output Device", font, &texture, &rect);
-    displayDevices(state.outputDevices);
+//    SDL_Texture *texture;
+//    SDL_Rect rect;
+    //displayDevices(state.outputDevices);
+//    get_text_and_rect(renderer, 0, 0, "Output Device", font, &texture, &rect);
+//    get_text_and_rect(renderer, 40, 0, state.outputDevices->infoName, font, &texture, &rect);
     /* Use TTF textures. */
-    SDL_RenderCopy(renderer, texture, NULL, &rect);
-    //get_text_and_rect(renderer, 0, rect1.y + rect1.h, "world", font, &texture2, &rect2);
-
-    if((currentFrameTick - lastFrameTick) >= ticksPerFrame) {
-    lastFrameTick = currentFrameTick;
-    } else {
-    //printf("Delay needed\n");
-    Uint32 elapsedTicks = currentFrameTick - lastFrameTick;
-    SDL_Delay(ticksPerFrame - elapsedTicks);
-    }
+//    SDL_RenderCopy(renderer, texture, NULL, &rect);
 }
 
-/*
- I DEVICE NON ESCONO SU SCHERMO E LA MEMORIA USATA AUMENTA AD OGNI ITERAZIONE :(
- */
-void displayDevices(OutputDeviceList* list){
-    const OutputDeviceList* device = list;
-    SDL_Texture *texture;
-    SDL_Rect rect;
-    int y = 22;
-    while(device != NULL){
-        char text[512];
-        int n = sprintf(text, "id: %d [%s] - %s\n", device->id, device->hostApiName, device->infoName);
-        device = device->next;
-        get_text_and_rect(renderer, 0, 2*y + 14, text, font, &texture, &rect);
-        y += 2;
-    }
-}
+//void displayDevices(OutputDeviceList* list){
+//    const OutputDeviceList* device = list;
+//    SDL_Texture *texture;
+//    SDL_Rect rect;
+//    int y = 22;
+//    while(device != NULL){
+////        char text[512];
+////        int n = sprintf(text, "id: %d [%s] - %s\n", device->id, device->hostApiName, device->infoName);
+//        device = device->next;
+//        get_text_and_rect(renderer, 0, 2*y + 10, device->infoName, font, &texture, &rect);
+//        y += 2;
+//    }
+//}
 
 int updateGraphics(State state){
+    Uint32 ticksCurrent = SDL_GetTicks();
+    float deltaTimeSeconds;
+    /* If current ticks are lower or equal with last frame ticks
+    * then we wait 1ms to make sure we're not rendering for no reason. */
+    if (!(ticksLastFrame < ticksCurrent)) {
+        SDL_Delay(1);  // wait 1ms
+    }
     
-    SDL_Event event;
-        if(SDL_PollEvent(&event)) {
-            if(event.type == SDL_QUIT) {
-                return -1;
-            } else if(event.type == SDL_KEYUP) {
-              if(event.key.keysym.sym == SDLK_q) {
+    if(SDL_PollEvent(&event)) {
+        if(event.type == SDL_QUIT) {
+            return -1;
+        } else if(event.type == SDL_KEYUP) {
+            if(event.key.keysym.sym == SDLK_q) {
                 /* Press q to quit the program */
                 return -1;
-              }
             }
-          }
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
-    SDL_RenderClear(renderer);
-    //showOutputDevices(state.outputDevices);
+        }
+    }
+    /* compute our delta time in seconds */
+    deltaTimeSeconds = (ticksCurrent - ticksLastFrame) / 1000.0f;
+    
+    /* set the new ticks to be used in the next pass */
+    ticksLastFrame = ticksCurrent;
+
     draw(window, renderer, state);
     SDL_RenderPresent(renderer);
+    SDL_Delay(1);//per limitare la CPU sempre al massimo, ma bisogna capire come risolvere
+
     return 1;
 }

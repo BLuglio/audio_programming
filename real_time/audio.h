@@ -24,6 +24,8 @@ int audio_callback(const void* inputBuffer, void* outputBuffer, unsigned long fr
 
 OutputDeviceList* initAudio();
 
+void startAudioStream();
+
 void terminateAudio();
 
 #endif /* audio_h */

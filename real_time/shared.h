@@ -20,7 +20,10 @@ typedef struct OutputDeviceList {
 } OutputDeviceList;
 
 typedef struct State{
-    OutputDeviceList* outputDevices
+    OutputDeviceList* outputDevices;
+    float carrierFrequency;
+    float modulatorFrequency;
+    int sineWaveAmp;
 } State;
 
 OutputDeviceList* push(OutputDeviceList* head, char* hostApiName, char* infoName, int id);
